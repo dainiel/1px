@@ -1,0 +1,151 @@
+<!DOCTYPE html>		
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="author" content="">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<title></title>
+</head>
+<body>
+	<div class="onepx-wrapper">
+		<link rel="stylesheet" type="text/css" href="chrome-extension://ihdmmofdakhppopopdoebhighkamdjfk/css/addImage.css">
+		<div class="onepx-picbox onepxDraggable" style="left: 370px; top: 143px;">
+			<img class="onepx-inserted-pic" draggable="false" src="http://e.hiphotos.baidu.com/album/w%3D2048/sign=39408bab4610b912bfc1f1fef7c5fd03/d043ad4bd11373f07653a38fa50f4bfbfbed04b6.jpg">
+			<div class="onepx-opertion">
+				<div class="onepx-btns">
+					<button class="close pxBtn">×</button>
+				</div>
+				<div class="onepx-extra">
+					<div class="onepx-less-box">
+						<div class="btn-box">						
+							<button class="pxBtn more">↓</button>
+						</div>
+					</div>
+					<div class="onepx-more-box">
+						<div class="btn-box">
+							<button class="pxBtn less">↑</button>
+						</div>
+						<div class="nav">
+							<span id="moveTop" class="top arrow"></span>
+							<span id="moveBottom" class="bottom arrow"></span>
+							<span id="moveLeft" class="left arrow"></span>
+							<span id="moveRight" class="right arrow"></span>
+						</div>
+						<div class="opacity-box">
+							<input class="opacity" type="range" min="0" max="100" />
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		nav({
+			nav : document.querySelector(".nav"),
+			parent : document.querySelector(".onepxDraggable")
+		});
+
+		opacity({
+			bar : document.querySelector(".opacity"),
+			pic : document.querySelector(".onepx-inserted-pic")
+		});
+
+		showHide({
+			more : document.querySelector(".onepx-more-box"),
+			less : document.querySelector(".onepx-less-box")
+		});
+
+		//调整窗口的显示
+		function showHide(options) {
+			var more = options.more,
+				less = options.less;
+
+			/* moreBox中有收缩的按钮 */
+			more.addEventListener("click", function(e) {
+				var target = e.target;
+				if(target.className.search("less") != -1) {;
+					less.style.display = "block";
+					more.style.display = "none";
+				}
+			}, false);
+			
+			less.addEventListener("click", function(e) {
+				var target = e.target;
+				if(target.className.search("more") != -1) {
+					more.style.display = "block";
+					less.style.display = "none";					
+				}
+			}, false);	
+		}
+
+		//以px为单位微调
+		function nav(options) {
+			var nav = options.nav,
+				parent = options.parent;				
+
+			nav.addEventListener("click", function(e) {
+				var target = e.target,
+					_id = target.getAttribute("id"),
+					_class = target.getAttribute("class");
+
+				var unit = 1;				
+
+				//如果按了shift键，移动距离*10
+				if(e.shiftKey) {
+					var unit = unit*10;
+				}
+				
+				//如果是导航按钮,则进行移位操作
+				if(_class.search("arrow") != -1) {
+					switch(_id) {
+						case("moveTop") :
+							moveInPx("top", -unit);
+							break;
+						case("moveBottom") :
+							moveInPx("top", unit);
+							break;
+						case("moveLeft") :
+							moveInPx("left", -unit);
+							break;
+						case("moveRight") :
+							moveInPx("left", unit);
+							break;						
+					}
+				}
+			}, false);
+
+			//以1px为单位移动
+			function moveInPx(pos, num) {
+				var style = parent.style;
+
+				var left = parseFloat(style.left),
+					top = parseFloat(style.top);
+				
+				if(pos == "left") {
+					style.left = left + num + "px";
+				}
+				else if(pos == "top") {
+					style.top = top + num + "px";
+				}
+			}
+		}
+
+		//调整透明度
+		function opacity(options) {
+			var bar = options.bar,
+				pic = options.pic;
+
+			var range = bar.max - bar.min;
+
+			bar.addEventListener("change", function(e) {
+				var target = e.target,
+					val = target.value;
+
+				pic.style.opacity = val/range;
+			}, false);
+		}
+	</script>
+</body>
+</html>

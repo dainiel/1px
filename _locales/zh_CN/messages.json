@@ -1,0 +1,60 @@
+{
+	"extName" : {
+		"message" : "1px",
+		"description" : "扩展的名称"
+	},
+	"extDescription" : {
+		"message" : "本扩展旨在帮助减少设计师对前端工程师的折磨",
+		"description" : "扩展的描述"
+	},
+	"homePage" : {
+		"message" : "http://weibo.com/3578331601",
+		"description" : "官方网站"
+	},
+	"browserActionTitle" : {
+		"message" : "1px",
+		"description" : "鼠标移到按钮上的显示"
+	},
+
+	"errorFileUnsupport1" : {
+		"message" : "您所选择的文件为"
+	},
+	"errorFileUnsupport2" : {
+		"message" : "不好意思，目前不支持此文件类型"
+	},
+	"errorGoogle1" : {
+		"message" : "当前为特殊页面"
+	},
+	"errorGoogle2" : {
+		"message" : "由于Chrome对扩展的安全限制，无法操作某些goolge页面"
+	},
+
+	"popupAddBtn" : {
+		"message" : "添加图片"
+	},
+	"popupInsBtn" : {
+		"message" : "插"
+	},
+	"popupInsBtnTitle" : {
+		"message" : "插入到当前页面"
+	},
+	"popupDelBtn" : {
+		"message" : "×"
+	},	
+	"popupDelBtnTitle" : {
+		"message" : "删除"
+	},
+
+	"optionClearBtn" : {
+		"message" : "清除缓存"
+	},
+	"optionClearingBtn" : {
+		"message" : "正在清除"
+	},
+	"optionClearedBtn" : {
+		"message" : "正在清除"
+	},
+	"optionCearWarn" : {
+		"message" : "点击此按钮后您的所有图片添加记录都会被删除"
+	}
+}

@@ -1,0 +1,60 @@
+{
+	"extName" : {
+		"message" : "1px",
+		"description" : "扩展的名称"
+	},
+	"extDescription" : {
+		"message" : "I can help F2E to find the 1px difference between the psd and HTML.",
+		"description" : "扩展的描述"
+	},
+	"homePage" : {
+		"message" : "https://twitter.com/1px_Extension",
+		"description" : "官方网站"
+	},
+	"browserActionTitle" : {
+		"message" : "1px",
+		"description" : "鼠标移到按钮上的显示"
+	},
+
+	"errorFileUnsupport1" : {
+		"message" : "The chosen File is "
+	},
+	"errorFileUnsupport2" : {
+		"message" : "Sorry,current file type unsupported"
+	},
+	"errorGoogle1" : {
+		"message" : "I Can't handle current page"
+	},
+	"errorGoogle2" : {
+		"message" : "Chrome security policy doesn't allow me to do this"
+	},
+
+	"popupAddBtn" : {
+		"message" : "add"
+	},
+	"popupInsBtn" : {
+		"message" : "insert"
+	},
+	"popupInsBtnTitle" : {
+		"message" : "insert into the current page"
+	},
+	"popupDelBtn" : {
+		"message" : "×"
+	},
+	"popupDelBtnTitle" : {
+		"message" : "delete"
+	},
+
+	"optionClearBtn" : {
+		"message" : "clear local data"
+	},
+	"optionClearingBtn" : {
+		"message" : "clearing"
+	},
+	"optionClearedBtn" : {
+		"message" : "cleared"
+	},
+	"optionCearWarn" : {
+		"message" : "All your added pics will be cleared"
+	}
+}

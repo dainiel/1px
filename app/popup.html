@@ -1,0 +1,81 @@
+<!DOCTYPE html>		
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="author" content="zxc">
+	<title>popup</title>
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/popup.css">
+</head>
+<body>
+	<div id="pxContainer">
+		<div id="pxheader" class="clearfix">
+			<div class="logo-box">
+				<a class="logo" href="http://dainiel.github.io/1px/" target="_blank"><img src="../images/logo/48.png" alt="1px"></a>
+			</div>
+			<div class="add-box">
+				<span class="pxBtn" data-i18n="popupAddBtn">add</span>
+				<input id="pxFile" type="file" name="filename" multiple="multiple" autocomplte="off" accept="image/*" />
+			</div>
+		</div>
+		<div id="pxContent">			
+			<div class="show-box">
+				<ul class="show-list clearfix">
+					<!-- <li class="show-item">					
+						<div class="pics" style="background-image:url(http://e.hiphotos.baidu.com/album/w%3D2048/sign=39408bab4610b912bfc1f1fef7c5fd03/d043ad4bd11373f07653a38fa50f4bfbfbed04b6.jpg)"></div>
+						<div class="handles">
+							<button class="insert pxBtn" data-i18n="popupInsBtn" title="">insert</button>
+							<button class="delete pxBtn" data-i18n="popupDelBtn" title="">×</button>
+						</div>
+					</li>
+
+					<li class="show-item">					
+						<div class="pics" style="background-image:url(http://e.hiphotos.baidu.com/album/w%3D2048/sign=39408bab4610b912bfc1f1fef7c5fd03/d043ad4bd11373f07653a38fa50f4bfbfbed04b6.jpg)"></div>
+						<div class="handles">
+							<button class="insert pxBtn" data-i18n="popupInsBtn" title="">insert</button>
+							<button class="delete pxBtn" data-i18n="popupDelBtn" title="">×</button>
+						</div>
+					</li>
+					<li class="show-item">					
+						<div class="pics" style="background-image:url(http://e.hiphotos.baidu.com/album/w%3D2048/sign=39408bab4610b912bfc1f1fef7c5fd03/d043ad4bd11373f07653a38fa50f4bfbfbed04b6.jpg)"></div>
+						<div class="handles">
+							<button class="insert pxBtn" data-i18n="popupInsBtn" title="">insert</button>
+							<button class="delete pxBtn" data-i18n="popupDelBtn" title="">×</button>
+						</div>
+					</li>
+					<li class="show-item">					
+						<div class="pics" style="background-image:url(http://e.hiphotos.baidu.com/album/w%3D2048/sign=39408bab4610b912bfc1f1fef7c5fd03/d043ad4bd11373f07653a38fa50f4bfbfbed04b6.jpg)"></div>
+						<div class="handles">
+							<button class="insert pxBtn" data-i18n="popupInsBtn" title="">insert</button>
+							<button class="delete pxBtn" data-i18n="popupDelBtn" title="">×</button>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+
+		<div id="pxFooter">
+			
+		</div>
+	</div>
+
+	<!-- 模版文件 -->
+	<script type="text/template" id="showItemTemplate">
+		<li class="show-item">					
+			<div class="pics"></div>
+			<div class="handles">
+				<button class="insert pxBtn" data-i18n="popupInsBtn" title="">insert</button>
+				<button class="delete pxBtn" data-i18n="popupDelBtn" title="">×</button>
+			</div>
+		</li>
+	</script>
+
+	<!-- 主体模块 -->
+	<script src="../js/seajs/sea.js"></script>
+	<script src="../js/module/config.js"></script>
+	<script src="../js/popup/popup.js"></script>
+
+	<!-- track code -->
+	<script src="/js/track/track.js"></script>
+</body>
+</html>

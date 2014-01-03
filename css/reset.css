@@ -1,0 +1,13 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th,td{margin: 0;padding: 0;}
+section, article, aside, header, footer, nav, dialog, figure {display: block;}
+body, button, input, select, textarea {font: 12px/1.2 "Microsoft Yahei",SimSun,tahoma,arial;}
+h1, h2, h3, h4, h5, h6 {font-size: 100%;}
+ul, ol {list-style: none outside none;}
+a {text-decoration: none;}
+a:hover {text-decoration: none;}
+legend {color: #000000;}
+fieldset, img {border: 0 none;}
+button, input, select, textarea {font-size: 100%;}
+table {border-collapse: collapse;border-spacing: 0;}
+textarea{resize:none;}
+.clearfix:after {content: ".";display: block;height: 0;clear:both;visibility: hidden;}

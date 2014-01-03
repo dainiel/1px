@@ -1,0 +1,18 @@
+/* 按钮 */
+.pxBtn{cursor:pointer;display:inline-block;padding:2.5px 4px;background-color:#2C3E50;color:#ECF0F1;border:none;}
+.pxBtn:active{background-color:#1C2E40;}
+
+body{background:#ECF0F1;color:#bdc3c7;}
+a{color:#bdc3c7;}
+a:hover{text-decoration:underline;}
+.container{width:420px;padding:30px;margin:50px auto;border:1px solid #bdc3c7;border-radius:5px}
+.header{margin-bottom:20px;}
+
+/* 配置列表 */
+.config-item .btn-box{display:inline-block;position:relative;}
+.config-item .btn-box .btn-disabled{display:none;}
+.config-item .warn{margin-left:10px;}
+
+
+/* 底部 */
+.footer{text-align:center;}
