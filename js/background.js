@@ -6,7 +6,7 @@ px.runtime.onConnect.addListener(function(port) {
 	
 	//将port对象存放在portList变量中，以防被gc回收
 	portList[portName] = port;
-	
+	console.log(portName)
 	if(portName == "popup") {
 		port.onMessage.addListener(function(msg) {
 			switch(msg.type) {
@@ -25,7 +25,7 @@ px.runtime.onConnect.addListener(function(port) {
 							showError("google");
 							return;
 						}
-
+						console.log(msg)
 						data = msg;
 						chrome.tabs.executeScript(null, {"file": "js/module/adapter.js"}, function() {
 							chrome.tabs.executeScript(null, {"file": "js/content/help.js"}, function() {

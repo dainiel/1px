@@ -5,12 +5,15 @@
 /* 可移动 */
 .onepxDraggable{cursor:move;}
 
-.onepx-wrapper{z-index:20000000;position:absolute;top:0;left:0;}
+/* 可缩放 */
+.onepxScalable{cursor:nw-resize;}
+
+.onepx-wrapper{z-index:20000000;position:absolute;top:0;left:0;width:100%;}
 /* 图片 */
 .onepx-wrapper .onepx-picbox{position:absolute;top:0;left:0;/*pointer-events:none;*/}
 .onepx-wrapper .onepx-inserted-pic{opacity:0.5;}
 /* 操作 */
-.onepx-wrapper .onepx-opertion{position:absolute;width:100%;left:0;top:5px;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-pack:justify;}
+.onepx-wrapper .onepx-opertion{position:absolute;width:100%;left:0;top:5px;bottom:0;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-pack:justify;}
 /* 关闭 */
 .onepx-btns{margin-left:5px;}
 .onepx-wrapper .close{}
@@ -36,3 +39,15 @@
 .onepx-extra .left:active{border-right-color:#bdc3c7;}
 .onepx-extra .right{border-left-color:#ECF0F1;right:-3px;top:17px;}
 .onepx-extra .right:active{border-left-color:#bdc3c7;}
+
+	/* 调整尺寸 */
+.onepx-extra .scale-box{right: 0;position:absolute;bottom:95%;transition: all ease-in-out 1s;cursor:nw-resize;width:30px;height:30px;}
+.onepx-extra .scale{position: absolute;height: 3.236px;width: 3.236px; display: inline-block;border: 2px solid #2C3E50;}
+.onepx-extra .scale:nth-child(1){bottom: 0;right: 10px;}
+.onepx-extra .scale:nth-child(2){bottom: 0;right: 0;}
+.onepx-extra .scale:nth-child(3){bottom: 10px;right: 0;}
+.onepx-extra .rate{font-size: 14px;right: 0;color: #fff;background: #2C3E50;bottom: 30px;position: absolute;padding: 2px 5px;}
+
+/*
+.onepx-extra .scale{color: #2C3E50;letter-spacing: -0.1em;font-size: 16px;position: relative;right: -50%;bottom: 0;display: inline-block;transform: rotate(45deg);}
+*/

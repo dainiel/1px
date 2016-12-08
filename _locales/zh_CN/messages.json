@@ -44,6 +44,9 @@
 	"popupDelBtnTitle" : {
 		"message" : "删除"
 	},
+	"popupManageBtnTitle" : {
+		"message" : "管理图片"
+	},
 
 	"optionClearBtn" : {
 		"message" : "清除缓存"

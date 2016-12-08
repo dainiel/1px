@@ -1,3 +1,6 @@
+//isMobile为true时，要适配手机调试模式
+var isMobile = !(navigator.userAgent.search("Mobile") == -1);
+
 //将图片插入到页面
 function insertImage(msg, options) {
 	//样式表
@@ -25,7 +28,7 @@ function insertImage(msg, options) {
 			tagName : "div",
 			attrs : {
 				className : "onepx-opertion",
-				innerHTML : '<div class="onepx-btns"><button class="close pxBtn">×</button></div><div class="onepx-extra"><div class="onepx-less-box"><div class="btn-box"><button class="pxBtn more">↓</button></div></div><div class="onepx-more-box"><div class="btn-box"><button class="pxBtn less">↑</button></div><div class="nav"><span id="moveTop" class="top arrow"></span><span id="moveBottom" class="bottom arrow"></span><span id="moveLeft" class="left arrow"></span><span id="moveRight" class="right arrow"></span></div><div class="opacity-box"><input class="opacity" type="range" min="0" max="100"/></div></div></div>'
+				innerHTML : '<div class="onepx-btns"><button class="close pxBtn">×</button></div><div class="onepx-extra"><div class="onepx-less-box"><div class="btn-box"><button class="pxBtn more">↓</button></div></div><div class="onepx-more-box"><div class="btn-box"><button class="pxBtn less">↑</button></div><div class="nav"><span id="moveTop" class="top arrow"></span><span id="moveBottom" class="bottom arrow"></span><span id="moveLeft" class="left arrow"></span><span id="moveRight" class="right arrow"></span></div><div class="opacity-box"><input class="opacity" type="range" min="0" max="100"/></div><div class="scale-box"><span class="scale"></span><span class="scale"></span><span class="scale"></span><span class="rate"></span></div></div></div>'
 			}
 		}),
 		/* 图片 */
@@ -34,18 +37,18 @@ function insertImage(msg, options) {
 			attrs : {
 				className : "onepx-inserted-pic",
 				draggable : false,
-				src : msg.src
+				src : msg.src,
+				//style: msg.scale?"scale(" + msg.scale + "," + msg.scale + ")":""
 			}
 		});
-
+	
 	//各种操作注册
 	/* 注册删除按钮事件 */		
 	_operationBox.addEventListener("click", function(e) {
-		//将图片从本地session中移除
-		removeImgFromSession(msg.imgId);
-
 		if(e.target.className.search("close") != -1) {
 			_body.removeChild(_wrapper);
+			//将图片从本地session中移除
+			removeImgFromSession(msg.imgId);
 		}
 	}, false);
 
@@ -63,7 +66,19 @@ function insertImage(msg, options) {
 		pic : _img
 	});
 
+	/* 缩放 */
+	scale({
+		imgId: msg.imgId,
+		btn : _operationBox.querySelector(".scale-box"),
+		pic : _img,
+		parent : _imgBox,		
+		scale: msg.scale
+	});
+
 	showHide({
+		imgId: msg.imgId,
+		showBtn: msg.showBtn,
+		_operationBox: _operationBox,
 		more : _operationBox.querySelector(".onepx-more-box"),
 		less : _operationBox.querySelector(".onepx-less-box")
 	});
@@ -104,12 +119,15 @@ function addImgToSession(msg) {
 }
 
 //图片移动的时候，改变其存储状态
-function updateImgFromSession(imgId, pos) {
+function updateImgFromSession(imgId, options) {
 	var key = getSessionKey();
 	var imgArray = sessionStorage[key]?JSON.parse(sessionStorage[key]):{};
 
 	if(imgArray[imgId]) {
-		imgArray[imgId]["pos"] = pos;
+		options.pos&&(imgArray[imgId]["pos"] = options.pos);
+		options.scale&&(imgArray[imgId]["scale"] = options.scale);
+		options.showBtn&&(imgArray[imgId]["showBtn"] = options.showBtn);
+
 		sessionStorage[key] = JSON.stringify(imgArray);
 	}	
 }
@@ -165,24 +183,60 @@ function appendChilds(options) {
 //将元素变为可拖动
 function drag(ele, imgId) {
 	var body = document,
-		left = parseInt(ele.style.left)||0,top = parseInt(ele.style.top)||0,
+		curTranslate = /translate\((-?\d+)px\s*,\s*(-?\d+)px\)/.exec(ele.style.transform),
+		left = curTranslate&&curTranslate[1]*1||0,top = curTranslate&&curTranslate[2]*1||0,
 		startX,startY,
 		endX,endY;
+	
+	//ele.style.position = "relative";	
 
-	//ele.style.position = "relative";
-	ele.className += " onepxDraggable";
+	if(isMobile) {
+		ele.addEventListener("touchstart", function(e) {
+			var curTouch = e["touches"][0];
 
-	ele.addEventListener("mousedown", function(e) {				
-		startX = e.clientX;
-		startY = e.clientY;			
-		body.addEventListener("mousemove", move, false);
-	}, false);
+			startX = curTouch.clientX;
+			startY = curTouch.clientY;			
+			ele.className += " onepxDraggable";
 
-	body.addEventListener("mouseup", function(e) {
-		body.removeEventListener("mousemove", move, false);
-		//更新session中图片的位置
-		updateImgFromSession(imgId, {left: left + "px", top: top + "px"});
-	}, false);
+			body.addEventListener("touchmove", touchMove, false);
+		}, false);
+
+		/*ele.addEventListener("touchmove", function(e) {		
+			e.preventDefault();
+			move(e["touches"][0]);
+		}, false);*/
+
+		body.addEventListener("touchend", function(e) {		
+			body.removeEventListener("touchmove", touchMove, false);
+			
+			ele.className = ele.className.replace("onepxDraggable", "");
+			//更新session中图片的位置
+			//updateImgFromSession(imgId, {pos: {left: left + "px", top: top + "px"}});
+			updateImgFromSession(imgId, {pos: {transform: "translate(" + left + "px," + top + "px)"}});
+		}, false);
+	} else {
+		ele.addEventListener("mousedown", function(e) {				
+			startX = e.clientX;
+			startY = e.clientY;			
+			ele.className += " onepxDraggable";
+
+			body.addEventListener("mousemove", move, false);
+		}, false);
+
+		body.addEventListener("mouseup", function(e) {
+			body.removeEventListener("mousemove", move, false);
+			
+			ele.className = ele.className.replace("onepxDraggable", "");
+			//更新session中图片的位置
+			//updateImgFromSession(imgId, {pos: {left: left + "px", top: top + "px"}});
+			updateImgFromSession(imgId, {pos: {transform: "translate(" + left + "px," + top + "px)"}});
+		}, false);
+	}
+
+	function touchMove(e) {
+		e.preventDefault();
+		move(e["touches"][0]);
+	}
 
 	function move(e) {
 		move.last = setTimeout(function() {
@@ -195,8 +249,10 @@ function drag(ele, imgId) {
 			startX = endX;
 			startY = endY;
 
-			ele.style.left = left + "px";
-			ele.style.top = top + "px";
+			//ele.style.left = left + "px";
+			//ele.style.top = top + "px";
+
+			ele.style.transform = "translate(" + left + "px," + top + "px)";
 		}, 0);		
 	}
 }
@@ -210,18 +266,45 @@ function showHide(options) {
 	more.addEventListener("click", function(e) {
 		var target = e.target;
 		if(target.className.search("less") != -1) {;
-			less.style.display = "block";
-			more.style.display = "none";
+			showLess();
+
+			//更新session中默认操作区展开状态
+			updateImgFromSession(options.imgId, {showBtn: "less"});
 		}
 	}, false);
 	
 	less.addEventListener("click", function(e) {
 		var target = e.target;
 		if(target.className.search("more") != -1) {
-			more.style.display = "block";
-			less.style.display = "none";					
+			showMore();	
+
+			//更新session中默认操作区展开状态
+			updateImgFromSession(options.imgId, {showBtn: "more"});
 		}
 	}, false);	
+
+	if(options.showBtn == "less") {
+		showLess();
+	} else if(options.showBtn == "more") {
+		showMore();	
+	}
+
+	//缩回
+	function showLess() {
+		less.style.display = "block";
+		more.style.display = "none";
+	}
+
+	//放下
+	function showMore() {
+		more.style.display = "block";
+		less.style.display = "none";			
+			
+		requestAnimationFrame(function() {
+			var scaleBox = options._operationBox.querySelector(".scale-box");
+			scaleBox.style.bottom = 0;	
+		})	
+	}
 }
 
 //以px为单位微调
@@ -265,15 +348,20 @@ function nav(options) {
 	function moveInPx(pos, num) {
 		var style = parent.style;
 
-		var left = parseFloat(style.left),
-			top = parseFloat(style.top);
+		/*var left = parseFloat(style.left),
+			top = parseFloat(style.top);*/
+		var curTranslate = /translate\((-?\d+)px\s*,\s*(-?\d+)px\)/.exec(style.transform),
+			left = curTranslate&&curTranslate[1]*1||0,
+			top = curTranslate&&curTranslate[2]*1||0;
 		
 		if(pos == "left") {
-			style.left = left + num + "px";
+			left += num;
 		}
 		else if(pos == "top") {
-			style.top = top + num + "px";
+			top += num;
 		}
+
+		style.transform = "translate(" + left + "px," + top + "px)";
 	}
 }
 
@@ -285,9 +373,15 @@ function opacity(options) {
 	var range = bar.max - bar.min;
 
 	//防止移动透明栏的时候整个图片都移动起来
-	bar.addEventListener("mousedown", function(e) {
-		e.stopPropagation();
-	});		
+	if(isMobile) {		
+		bar.addEventListener("touchmove", function(e) {
+			e.stopPropagation();
+		});	
+	} else {
+		bar.addEventListener("mousedown", function(e) {
+			e.stopPropagation();
+		});	
+	}		
 
 	bar.addEventListener("change", function(e) {
 		var target = e.target,
@@ -295,4 +389,129 @@ function opacity(options) {
 
 		pic.style.opacity = val/range;
 	}, false);
+}
+
+//调整尺寸
+function scale(options) {
+	var btn = options.btn,
+		pic = options.pic,
+		rateTxt = btn.querySelector(".rate"),
+		_parent = options.parent;
+	var body = document,
+		picWidth = pic.naturalWidth,
+		picHeight = pic.naturalHeight,
+		startX, startY,
+		endX,endY;
+	var rate = options.scale||1;
+
+	//初始化尺寸
+	/*if(picWidth > document.documentElement.clientWidth) {
+		picHeight = picHeight*document.documentElement.clientWidth/picWidth;
+		picWidth = document.documentElement.clientWidt;
+	}*/
+	setSize(rate);
+
+	if(isMobile) {
+		btn.addEventListener("touchstart", function(e) {
+			e.stopPropagation();
+			e.preventDefault()
+
+			var curTouch = e["touches"][0];
+			startX = curTouch.clientX;
+			startY = curTouch.clientY;			
+
+			body.addEventListener("touchmove", touchScale, false);
+
+			_parent.className += " onepxScalable";
+		});	
+
+		/*btn.addEventListener("touchmove", function(e) {
+			e.stopPropagation();
+			e.preventDefault()
+
+			var curTouch = e["touches"][0];
+			scale(curTouch);			
+		});	*/
+
+		btn.addEventListener("touchend", function(e) {
+			body.removeEventListener("touchmove", touchScale, false);
+			console.log(23423432)
+			_parent.className = _parent.className.replace("onepxScalable", "");
+			
+			//更新session中图片的位置
+			updateImgFromSession(options.imgId, {scale: rate});		
+		});	
+	} else {
+		btn.addEventListener("mousedown", function(e) {
+			e.stopPropagation();
+			e.preventDefault()
+
+			startX = e.clientX;
+			startY = e.clientY;			
+			body.addEventListener("mousemove", scale, false);
+
+			_parent.className += " onepxScalable";
+		});	
+
+		body.addEventListener("mouseup", function(e) {
+			body.removeEventListener("mousemove", scale, false);
+
+			_parent.className = _parent.className.replace("onepxScalable", "");
+
+			//更新session中图片的位置
+			updateImgFromSession(options.imgId, {scale: rate});
+		});	
+	}
+
+	function touchScale(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		scale(e["touches"][0]);
+	}
+
+	function scale(e) {
+		scale.last = setTimeout(function() {
+			clearTimeout(scale.last);
+			endX = e.clientX;
+			endY = e.clientY;
+			var xRate = (endX - startX)/picWidth,
+				yRate = (endY - startY)/picHeight;
+
+			if(xRate >=0&& yRate >=0) {
+				rate += Math.min(xRate, yRate);
+			} else if(xRate <=0&& yRate <=0){
+				rate += Math.max(xRate, yRate);
+			} else {
+				return;
+			}
+
+			//更新初始xy值
+			startX = endX;
+			startY = endY;
+
+			setSize(rate);
+
+			//pic.style.transform = "scale(" + rate + "," + rate + ")";
+		}, 0);	
+	}
+
+	//设置图片尺寸
+	function setSize(rate) {
+		pic.style.width = picWidth*rate + "px";
+		pic.style.height = picHeight*rate + "px";
+
+		var showRate = parseInt(rate*100);		
+
+		if(showRate%100) {
+			if(showRate%10) {
+				showRate = showRate/100;
+			} else {
+				showRate = showRate/100 + "0";
+			}
+		} else {
+			showRate = showRate/100 + ".00";
+		}
+
+		rateTxt.innerText = showRate;
+	}
 }

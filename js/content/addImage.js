@@ -2,6 +2,7 @@
 	var port = px.runtime.connect({name : "content"});
 
 	port.onMessage.addListener(function(msg) {
+		console.log(msg);
 		if(msg.type == "add") {
 			insertImage(msg, {pinned: true});
 		}

@@ -19,7 +19,7 @@ body{background:#ECF0F1}
 
 /* 添加按钮区域 */
 .add-box{position:relative;float:right;margin-right:13px;margin-top:11px;}
-.add-box .pxBtn{padding:7.4px 12px;}
+.add-box .pxBtn, .add-box .pxManageBtn{padding:7.4px 12px;}
 .add-box input[name=filename]{cursor:pointer;opacity:0;position:absolute;left:0;top:0;width:72px;height:29px;}
 
 /* 展示区域 */

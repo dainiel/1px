@@ -23,6 +23,15 @@ seajs.use(["base", "adapter", "msg", "popup/render"], function($, px, showError,
 	var bgPort = window.bgPort || px.runtime.connect({name : "popup"});
 	window.bgPort = bgPort;
 
+	//弹出管理页面
+	$("#pxManage").on("click", function(e) {
+		chrome.tabs.create({
+			url: "app/manage.html"
+		}, function() {
+
+		});
+	});
+
 	//选择文件改变时，读取相关信息
 	uploadBtn.on("change", function(e) {
 		var files = e.target.files;
@@ -134,7 +143,7 @@ seajs.use(["base", "adapter"], function($, px) {
 			$showItem = $deleteBtn.parents(".show-item");
 
 		var $img = $showItem.find(".pics"),
-			results = /\((.*)\)/.exec($img[0].style.backgroundImage),
+			results = /\(\"(.*)\"\)/.exec($img[0].style.backgroundImage),
 			dataURL = results[1];
 		
 		bgPort.postMessage({
