@@ -1,7 +1,7 @@
 {
 	"update_url" :"http://clients2.google.com/service/update2/crx",
 	"name" : "__MSG_extName__",
-	"version" : "0.6.40",
+	"version" : "0.7.44",
 	"manifest_version" : 2,
 	"description" : "__MSG_extDescription__",
 	"homepage_url" : "http://dainiel.github.io/1px/",
@@ -29,7 +29,7 @@
 		}
 	],
 	"options_page": "app/option.html",
-	"web_accessible_resources": ["images/logo/48.png","css/addImage.css"],
+	"web_accessible_resources": ["images/logo/48.png", "images/mouse.svg", "css/addImage.css"],
 
 	"permissions" : ["fontSettings","clipboardRead","clipboardWrite","storage","unlimitedStorage","contentSettings","chrome://favicon/","tabs","notifications","cookies","contextMenus","http://*/*","https://*/*","management"]
 	

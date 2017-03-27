@@ -1,4 +1,4 @@
-/* 按钮 */
+/*  按钮 */
 .pxBtn{cursor:pointer;display:inline-block;padding:2.5px 4px;background-color:#2C3E50;color:#ECF0F1;border:none;}
 .pxBtn:active{background-color:#1C2E40;}
 
@@ -47,7 +47,10 @@
 .onepx-extra .scale:nth-child(2){bottom: 0;right: 0;}
 .onepx-extra .scale:nth-child(3){bottom: 10px;right: 0;}
 .onepx-extra .rate{font-size: 14px;right: 0;color: #fff;background: #2C3E50;bottom: 30px;position: absolute;padding: 2px 5px;}
+	
+	/* 鼠标滚轮调整尺寸 */
+.onepx-extra .mouse-scale-box {cursor:pointer; position: absolute;right: 0;bottom: 56px;opacity: 0.5;}
+.onepx-extra .mouse-scale-box.active{opacity: 1}
 
 /*
 .onepx-extra .scale{color: #2C3E50;letter-spacing: -0.1em;font-size: 16px;position: relative;right: -50%;bottom: 0;display: inline-block;transform: rotate(45deg);}
-*/

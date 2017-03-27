@@ -28,7 +28,17 @@ function insertImage(msg, options) {
 			tagName : "div",
 			attrs : {
 				className : "onepx-opertion",
-				innerHTML : '<div class="onepx-btns"><button class="close pxBtn">×</button></div><div class="onepx-extra"><div class="onepx-less-box"><div class="btn-box"><button class="pxBtn more">↓</button></div></div><div class="onepx-more-box"><div class="btn-box"><button class="pxBtn less">↑</button></div><div class="nav"><span id="moveTop" class="top arrow"></span><span id="moveBottom" class="bottom arrow"></span><span id="moveLeft" class="left arrow"></span><span id="moveRight" class="right arrow"></span></div><div class="opacity-box"><input class="opacity" type="range" min="0" max="100"/></div><div class="scale-box"><span class="scale"></span><span class="scale"></span><span class="scale"></span><span class="rate"></span></div></div></div>'
+				innerHTML : ['<div class="onepx-btns"><button class="close pxBtn">×</button></div>',
+					'<div class="onepx-extra">',
+					'<div class="onepx-less-box"><div class="btn-box"><button class="pxBtn more">↓</button></div></div>',
+					'<div class="onepx-more-box"><div class="btn-box"><button class="pxBtn less">↑</button></div>',
+					'<div class="nav"><span id="moveTop" class="top arrow"></span><span id="moveBottom" class="bottom arrow"></span><span id="moveLeft" class="left arrow"></span><span id="moveRight" class="right arrow"></span></div>',
+					'<div class="opacity-box"><input class="opacity" type="range" min="0" max="100"/></div>',										
+					'<div class="mouse-scale-box"><img width=25 height=25 src="' + px.runtime.getURL("images/mouse.svg") + '"></div>', //鼠标滚轮缩放
+					'<div class="scale-box">',
+					'<span class="scale"></span><span class="scale"></span><span class="scale"></span><span class="rate"></span>', //鼠标移动缩放					
+					'</div>',
+					'</div></div>'].join("")
 			}
 		}),
 		/* 图片 */
@@ -70,9 +80,11 @@ function insertImage(msg, options) {
 	scale({
 		imgId: msg.imgId,
 		btn : _operationBox.querySelector(".scale-box"),
+		mouseBtn: _operationBox.querySelector(".mouse-scale-box"),
 		pic : _img,
 		parent : _imgBox,		
-		scale: msg.scale
+		scale: msg.scale,
+		wheelScale: msg.wheelScale
 	});
 
 	showHide({
@@ -120,13 +132,21 @@ function addImgToSession(msg) {
 
 //图片移动的时候，改变其存储状态
 function updateImgFromSession(imgId, options) {
-	var key = getSessionKey();
-	var imgArray = sessionStorage[key]?JSON.parse(sessionStorage[key]):{};
+	var key = getSessionKey(),
+		imgArray = sessionStorage[key]?JSON.parse(sessionStorage[key]):{};
+	var storeArray = ["pos", "scale", "showBtn", "wheelScale"],
+		curStore;
 
 	if(imgArray[imgId]) {
-		options.pos&&(imgArray[imgId]["pos"] = options.pos);
+		/*options.pos&&(imgArray[imgId]["pos"] = options.pos);
 		options.scale&&(imgArray[imgId]["scale"] = options.scale);
-		options.showBtn&&(imgArray[imgId]["showBtn"] = options.showBtn);
+		options.showBtn&&(imgArray[imgId]["showBtn"] = options.showBtn);*/
+		for(var i = 0; i<storeArray.length; i++) {
+			curStore = storeArray[i];
+			if(options[curStore] !== undefined) {
+				imgArray[imgId][curStore] = options[curStore];
+			}
+		}
 
 		sessionStorage[key] = JSON.stringify(imgArray);
 	}	
@@ -394,6 +414,7 @@ function opacity(options) {
 //调整尺寸
 function scale(options) {
 	var btn = options.btn,
+		mouseBtn = options.mouseBtn,
 		pic = options.pic,
 		rateTxt = btn.querySelector(".rate"),
 		_parent = options.parent;
@@ -435,7 +456,6 @@ function scale(options) {
 
 		btn.addEventListener("touchend", function(e) {
 			body.removeEventListener("touchmove", touchScale, false);
-			console.log(23423432)
 			_parent.className = _parent.className.replace("onepxScalable", "");
 			
 			//更新session中图片的位置
@@ -463,6 +483,53 @@ function scale(options) {
 		});	
 	}
 
+
+	wheelMove();
+	//滚轮缩放
+	function wheelMove() {
+		var active = options.wheelScale;
+		//初始化按钮状态
+		if(active) {
+			mouseBtn.className += " active";
+			_parent.addEventListener("wheel", weelScale);
+		}
+
+		mouseBtn.addEventListener("click", function(e) {
+			var cn = mouseBtn.className;
+			//已开启
+			if(cn.search("active") !== -1) {
+				mouseBtn.className = cn.replace(/active/g, "");
+
+				//更新session中按钮的点击状态
+				updateImgFromSession(options.imgId, {wheelScale: false});
+
+				_parent.removeEventListener("wheel", weelScale);
+			} else {
+				mouseBtn.className += " active";
+
+				//更新session中按钮的点击状态
+				updateImgFromSession(options.imgId, {wheelScale: true});
+
+				_parent.addEventListener("wheel", weelScale);
+			}
+		});
+	}
+
+	//滚轮缩放的最终处理方法
+	function weelScale(e) {
+		var deltaY = e.deltaY;
+
+		if(deltaY > 0) {
+			rate += 0.01;
+		} else if(deltaY < 0){
+			rate -= 0.01;
+		}
+		setSize(rate);
+		//更新session中图片的位置
+		updateImgFromSession(options.imgId, {scale: rate});
+	}
+
+	//手机模式下的缩放
 	function touchScale(e) {
 		e.stopPropagation();
 		e.preventDefault();

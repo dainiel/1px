@@ -8,7 +8,7 @@
 		imgArray = JSON.parse(imgArray);
 
 		var imgArray2 = [];
-		
+		//console.log(imgArray)
 		//将imgArray的格式转换成insertImage方法可以读懂的
 		for(var id in imgArray) {
 			imgArray2.push({
@@ -17,6 +17,7 @@
 				pos: imgArray[id].pos,
 				scale: imgArray[id].scale,
 				showBtn: imgArray[id].showBtn,
+				wheelScale: imgArray[id].wheelScale
 			});
 		}
 		

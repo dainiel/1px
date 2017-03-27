@@ -29,3 +29,6 @@ body{background:#ECF0F1}
 .pics{opacity:0.5;width:100%;height:100%;background-repeat:no-repeat;background-position:center center;background-size:100% auto;}
 .show-item .handles{opacity:0;position:absolute;top:10px;right:5px;transition:opacity ease-in-out 0.1s}
 .show-item:hover .handles{opacity:1;}
+
+/* 管理页面样式 */
+#pxManageContainer .show-list{width:auto;}

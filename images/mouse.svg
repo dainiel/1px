@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="89.963585" height="80.513115" id="onepx-mousescale">
+  <defs id="defs4426"/>
+  <g transform="translate(-203.58964,-366.39134)" id="layer1">
+    <path d="m 223.44234,368.36565 c 5.3702,-3.1409 12.9468,-2.7265 16.1233,2.6372 l 0.078,0.134 c -0.6741,0.2792 -1.3244,0.5854 -1.9611,0.9529 -0.5279,0.3047 -1.0113,0.6516 -1.4984,1.0085 -0.011,-0.018 -0.022,-0.037 -0.031,-0.053 -2.8916,-4.8832 -15.7721,-2.6819 -14.5308,6.2728 0.8886,6.409 -2.3121,10.8532 -6.2909,12.5289 -3.9789,1.6757 -8.6649,1.2079 -11.2876,-1.8416 -0.6816,-0.7901 -0.5828,-2.1289 0.2072,-2.8103 0.79,-0.6818 2.1287,-0.5829 2.8101,0.2071 1.0124,1.1772 4.1651,1.8587 6.728,0.7791 2.5627,-1.079 4.5821,-3.2859 3.8858,-8.3062 -0.6633,-4.787 1.4926,-8.524 4.7225,-10.8341 0.3366,-0.2402 0.6871,-0.4655 1.0455,-0.6747 z m 12.7416,4.733 c 1.7074,2.8404 3.5862,6.2115 5.3281,9.2289 -1.5947,1.8664 -1.9063,4.5894 -0.6054,6.8427 l 2.5012,4.3317 c 1.3009,2.2532 3.8147,3.3448 6.2286,2.8971 l 4.8465,8.3948 -24.2689,14.0115 c -5.674,-16.3859 -5.0881,-37.5945 5.9699,-45.7067 z m 3.4592,-1.9616 c 12.5828,-5.2094 31.3483,4.6416 42.714,17.5632 l -24.4304,14.105 -4.8465,-8.3946 c 1.6175,-1.8673 1.9672,-4.6082 0.6591,-6.8741 l -2.501,-4.3318 c -1.3079,-2.2656 -3.8566,-3.3331 -6.2825,-2.8659 l -5.3127,-9.2018 z m 45.2404,20.6964 c 1.2128,1.5983 2.3247,3.2185 3.2704,4.8563 9.8742,17.1029 5.827,37.927 -9.0532,46.5181 -14.8799,8.5909 -34.9648,1.6995 -44.8391,-15.4034 -0.9457,-1.6381 -1.7839,-3.4163 -2.5707,-5.26 l 53.1926,-30.711 z" id="path3256-9-7" style="fill:#2C3E50;stroke:none"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Mouse Pictogram</dc:title>
+        <dc:date>2013-11-26T05:50:57</dc:date>
+        <dc:description/>
+        <dc:source>http://openclipart.org/detail/189153/mouse-pictogram-by-libberry-189153</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>libberry</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>mouse</rdf:li>
+            <rdf:li>computer</rdf:li>
+            <rdf:li>device</rdf:li>
+            <rdf:li>pointer</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
