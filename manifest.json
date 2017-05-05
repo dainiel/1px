@@ -1,7 +1,7 @@
 {
 	"update_url" :"http://clients2.google.com/service/update2/crx",
 	"name" : "__MSG_extName__",
-	"version" : "0.7.44",
+	"version" : "0.7.66",
 	"manifest_version" : 2,
 	"description" : "__MSG_extDescription__",
 	"homepage_url" : "http://dainiel.github.io/1px/",

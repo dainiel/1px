@@ -419,8 +419,8 @@ function scale(options) {
 		rateTxt = btn.querySelector(".rate"),
 		_parent = options.parent;
 	var body = document,
-		picWidth = pic.naturalWidth,
-		picHeight = pic.naturalHeight,
+		picWidth,
+		picHeight,
 		startX, startY,
 		endX,endY;
 	var rate = options.scale||1;
@@ -431,7 +431,10 @@ function scale(options) {
 		picWidth = document.documentElement.clientWidt;
 	}*/
 	setSize(rate);
-
+	//只能用这个方法fix下初始化时无法获取尺寸的bug
+	setTimeout(function() {
+		setSize(rate)
+	}, 100);
 	if(isMobile) {
 		btn.addEventListener("touchstart", function(e) {
 			e.stopPropagation();
@@ -564,6 +567,9 @@ function scale(options) {
 
 	//设置图片尺寸
 	function setSize(rate) {
+		picWidth = pic.naturalWidth;
+		picHeight = pic.naturalHeight;
+
 		pic.style.width = picWidth*rate + "px";
 		pic.style.height = picHeight*rate + "px";
 
