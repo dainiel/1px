@@ -212,6 +212,7 @@ function drag(ele, imgId) {
 
 	if(isMobile) {
 		ele.addEventListener("touchstart", function(e) {
+			e.preventDefault();
 			var curTouch = e["touches"][0];
 
 			startX = curTouch.clientX;
@@ -435,6 +436,7 @@ function scale(options) {
 	setTimeout(function() {
 		setSize(rate)
 	}, 100);
+
 	if(isMobile) {
 		btn.addEventListener("touchstart", function(e) {
 			e.stopPropagation();
